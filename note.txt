@@ -1,0 +1,11 @@
+Пользовательские скрипты хранятся в
+/usr/bin/0_users_scripts/
+
+Активное охлаждение:
+	active_fun.service
+	display.service
+
+Питоноскрипт as service:
+	https://tecadmin.net/setup-autorun-python-script-using-systemd/
+
+sudo systemctl start/stop/status service
