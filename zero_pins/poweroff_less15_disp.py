@@ -1,7 +1,5 @@
 import struct
 import smbus
-import sys
-import time
 import RPi.GPIO as GPIO
 
 import Adafruit_GPIO.SPI as SPI
@@ -11,13 +9,15 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
+import sys
+import time
 import os
 import subprocess
-
-import re
+import signal
 import datetime
 
 WAIT_FOR_NEXT_FRAME = 10
+# на экран влазит 4 строки посде разделителя
 SCREENS = 3
 
 KNOX = 0
@@ -73,7 +73,7 @@ def main():
         while_true()
     except KeyboardInterrupt:
         # print('Вы здесь.')
-        clear_disp()
+        clear_display()
         return 1
 
 
@@ -98,7 +98,7 @@ def screens(number_screen):
     global KNOX
     capacity = round(read_capacity(BUS))
     if (capacity < 15 or voltage <= 3.5) and KNOX > 3 and charged == "":
-        clear_disp()
+        clear_display()
         os.system("sudo poweroff")
     KNOX += 1
     if KNOX == 254:
@@ -224,9 +224,18 @@ def power_on_reset(bus):
     bus.write_word_data(address, 0xfe, 0x0054)
 
 
-def clear_disp():
+def clear_display():
     disp.clear()
     disp.display()
+
+
+def handler_stop_signals(signum, frame):
+    clear_display()
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, handler_stop_signals)
+signal.signal(signal.SIGTERM, handler_stop_signals)
 
 
 if __name__ == '__main__':
