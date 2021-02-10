@@ -68,4 +68,4 @@ sudo systemctl restart dummy.service       # To restart running service
 ---
 
 Вольный перевод [этой](https://tecadmin.net/setup-autorun-python-script-using-systemd/) статьи,
-так же почиать про автоматический перезапуск сервиса можно [тут](https://ma.ttias.be/auto-restart-crashed-service-systemd/).
+так же почитать про автоматический перезапуск сервиса можно [тут](https://ma.ttias.be/auto-restart-crashed-service-systemd/).
