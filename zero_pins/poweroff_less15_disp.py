@@ -47,7 +47,7 @@ image = Image.new('1', (width, height))
 draw = ImageDraw.Draw(image)
 
 # Draw a black filled box to clear the image.
-draw.rectangle((0,0,width,height), outline=0, fill=0)
+draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
 # Draw some shapes.
 # First define some constants to allow easy resizing of shapes.
@@ -57,25 +57,17 @@ bottom = height-padding
 # Move left to right keeping track of the current x position for drawing shapes.
 x = 0
 
-
-# Load default font.
 font = ImageFont.load_default()
-
-# Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
-# Some other nice fonts to try: http://www.dafont.com/bitmap.php
-# font = ImageFont.truetype('Minecraftia.ttf', 8)
-
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.setup(4,GPIO.IN)
+GPIO.setup(4, GPIO.IN)
 BUS = smbus.SMBus(1)
 
-#SCREENS -= 1
 
 def main():
-    PowerOnReset(BUS)
-    QuickStart(BUS)
+    power_on_reset(BUS)
+    quick_start(BUS)
 
     try:
         while_true()
@@ -94,7 +86,7 @@ def replacer(changed_string, list_replace):
 
 def screens(number_screen):
     # ups_lite
-    voltage = round(readVoltage(BUS), 2)
+    voltage = round(read_voltage(BUS), 2)
 
     if GPIO.input(4) == GPIO.HIGH:
         charged = "(charge) "
@@ -104,7 +96,7 @@ def screens(number_screen):
         charged = 'wft'
 
     global KNOX
-    capacity = round(readCapacity(BUS))
+    capacity = round(read_capacity(BUS))
     if (capacity < 15 or voltage <= 3.5) and KNOX > 3 and charged == "":
         clear_disp()
         os.system("sudo poweroff")
@@ -127,12 +119,12 @@ def screens(number_screen):
     if number_screen == 0:
         # network screen
         network_status = 'Connected to:'
-        #cmd = "iwconfig wlan0 | sed -n 's/.*Access Point: \([0-9\:A-F]\{17\}\).*/\1/p'"
+        # cmd = "iwconfig wlan0 | sed -n 's/.*Access Point: \([0-9\:A-F]\{17\}\).*/\1/p'"
         cmd = "iwgetid -r"
         bssid_name = subprocess.check_output(cmd, shell = True)
-        #print(type(bssid_name))
-        #bssid_name = 'Wi-Fi: ' + str(bssid_name)
-        #print(bssid_name)
+        # print(type(bssid_name))
+        # bssid_name = 'Wi-Fi: ' + str(bssid_name)
+        # print(bssid_name)
 
         cmd = "hostname -I | cut -d\' \' -f1"
         ip = subprocess.check_output(cmd, shell = True)
@@ -161,7 +153,7 @@ def screens(number_screen):
         temp = 'CPU Temp: ' + replacer(temp, ['"', 'b', '\\', 'n', 'temp='])
 
         if_return = [
-            cpu, temp, disk_usage
+            cpu, temp, disk_usage, memory_usage
         ]
         pass
 
@@ -185,7 +177,7 @@ def while_true():
     now = 0
     while True:
         # Draw a black filled box to clear the image.
-        draw.rectangle((0,0,width,height), outline=0, fill=0)
+        draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
         number_screen = round(now % SCREENS)
         # screen_line = 'Screen {0} of {1}.'.format(number_screen, SCREENS - 1)
@@ -193,7 +185,6 @@ def while_true():
         text_list = screens(number_screen)
         for index, d_text in enumerate(text_list):
             draw.text((0, top + index * 9), d_text, font=font, fill=255)
-        
 
         # Display image.
         disp.image(image)
@@ -204,8 +195,7 @@ def while_true():
             now = 0
 
 
-
-def readVoltage(bus):
+def read_voltage(bus):
     "This function returns as float the voltage from the Raspi UPS Hat via the provided SMBus object"
     address = 0x36
     read = bus.read_word_data(address, 0X02)
@@ -214,8 +204,9 @@ def readVoltage(bus):
     return voltage
 
 
-def readCapacity(bus):
-    "This function returns as a float the remaining capacity of the battery connected to the Raspi UPS Hat via the provided SMBus object"
+def read_capacity(bus):
+    # This function returns as a float the remaining capacity of the battery connected
+    # to the Raspi UPS Hat via the provided SMBus object
     address = 0x36
     read = bus.read_word_data(address, 0X04)
     swapped = struct.unpack("<H", struct.pack(">H", read))[0]
@@ -223,14 +214,14 @@ def readCapacity(bus):
     return capacity
 
 
-def QuickStart(bus):
+def quick_start(bus):
     address = 0x36
-    bus.write_word_data(address, 0x06,0x4000)
+    bus.write_word_data(address, 0x06, 0x4000)
       
 
-def PowerOnReset(bus):
+def power_on_reset(bus):
     address = 0x36
-    bus.write_word_data(address, 0xfe,0x0054)
+    bus.write_word_data(address, 0xfe, 0x0054)
 
 
 def clear_disp():
