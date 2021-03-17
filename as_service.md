@@ -59,10 +59,10 @@ sudo systemctl start test_py_script.service
 Соответственно выполняется при помощи:
 
 ```bash
-sudo systemctl status dummy.service        # To get status service
-sudo systemctl stop dummy.service          # To stop running service 
-sudo systemctl start dummy.service         # To start running service 
-sudo systemctl restart dummy.service       # To restart running service 
+sudo systemctl status test_py_script.service        # To get status service
+sudo systemctl stop test_py_script.service          # To stop running service 
+sudo systemctl start test_py_script.service         # To start running service 
+sudo systemctl restart test_py_script.service       # To restart running service 
 ```
 
 ---
