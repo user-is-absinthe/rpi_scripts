@@ -16,6 +16,8 @@ print('Hell word!')
 
 Он должен иметь расширение ```*.service``` и находиться в ```/lib/systemd/system/```
 
+Чтобы процесс запускался в действительном фоновом, а не мнимм режиме (то есть вывод не подавался в первый подключенный терминал), следует использовать утилиту ```nohup```.
+
 ```bash
 sudo nano /lib/systemd/system/test_py_script.service
 ``` 
@@ -27,7 +29,7 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 /usr/bin/0_users_scripts/test_service.py
+ExecStart=nohup /usr/bin/python3 /usr/bin/0_users_scripts/test_service.py
 StandardInput=tty-force
 
 [Install]
