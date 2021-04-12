@@ -55,6 +55,9 @@ systemctl status teamspeak.service
 #### смотреть логи + взять ключ админа:
 ```cat /home/teamspeak/logs/ts3server_*```
 
+#### взять только токен:
+```cat /home/teamspeak/logs/ts3server_* | grep token```
+
 #### **если что-то пошло не так, то переустновить весь сервер можно удалив файл базы из основной директории сервера:**
 ```bash
 systemctl stop teamspeak
