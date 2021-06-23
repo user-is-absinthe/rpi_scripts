@@ -36,6 +36,13 @@ StandardInput=tty-force
 WantedBy=multi-user.target
 ```
 
+Для автоматического рестарта добавить эти строки в конец пункта ```Service```:
+```bash
+[Service]
+Restart=always
+RestartSec=3
+``` 
+
 ### 3. Активируем сервис
 
 Для начала перезагрузить демона:
