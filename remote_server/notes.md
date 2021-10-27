@@ -6,3 +6,5 @@
 
 - [MD-editor online.](https://pandao.github.io/editor.md/en.html)
 
+- [Install Java&JDK 17.](https://techviewleo.com/install-java-openjdk-on-ubuntu-linux/)
+
