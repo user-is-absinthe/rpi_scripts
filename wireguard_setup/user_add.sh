@@ -1,15 +1,13 @@
 #!/bin/bash
-# тут есть кучка ошибок (от линтера), но всё работает, а исправлять мне лень и сломать боюсь
 KEYS_DIR="keys"
 WG_INTERFACE_NAME="wg0"
-PUBKEY_SERVER="server_public_key"
-IP_SERVER="server_ip"
-PORT_SERVER="server_port"
+PUBKEY_SERVER="8db1PMpTiuOwnZW4nvkdkYDjAZuY+9++ZmTcwuT+QmA="
+IP_SERVER="89.22.230.27"
+PORT_SERVER="51819"
 
 if ! [[ $# -gt 0 ]]
     then
-        echo "Error: Wrong argument(-s). Use like this:"
-        echo "./user_add.sh -i {last octet IP} -u {username without spaces}"
+        echo "./user_add.sh -i {последний октет IP} -u {username without spaces}"
         echo "Example:"
         echo "./user_add.sh -i 97 -u iPhone_Igor"
         exit 0
@@ -100,6 +98,6 @@ echo "$config" > "${path_to_work_dir}/config.conf"
 `wg set ${WG_INTERFACE_NAME} peer ${public_key} allowed-ips 10.8.0.${small_ip}`
 
 # echo "Already done!"
-
+echo "${username} with IP 10.8.0.${small_ip}"
 echo "$config" | qrencode -t ansiutf8
 # cat "${path_to_work_dir}/config.conf"
