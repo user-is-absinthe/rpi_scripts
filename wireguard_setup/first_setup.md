@@ -63,8 +63,7 @@ PrivateKey = {закрытый ключ сервера}
 
 Или при помощи команды ```wg show```.
 
-#### Короткое создание клиента, полное описано в
-[wg_help.md](https://github.com/user-is-absinthe/rpi_scripts/blob/master/wireguard_setup/wg_help.md)
+#### Короткое создание клиента, полное описано в [wg_help.md](https://github.com/user-is-absinthe/rpi_scripts/blob/master/wireguard_setup/wg_help.md)
 или можно воспользоваться скрпитом [user_add.sh](https://github.com/user-is-absinthe/rpi_scripts/blob/master/wireguard_setup/user_add.sh):
 1. Создать ключи:
 
