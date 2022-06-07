@@ -121,13 +121,13 @@ def screens(number_screen):
         network_status = 'Connected to:'
         # cmd = "iwconfig wlan0 | sed -n 's/.*Access Point: \([0-9\:A-F]\{17\}\).*/\1/p'"
         cmd = "iwgetid -r"
-        bssid_name = subprocess.check_output(cmd, shell = True)
+        bssid_name = subprocess.check_output(cmd, shell=True)
         # print(type(bssid_name))
         # bssid_name = 'Wi-Fi: ' + str(bssid_name)
         # print(bssid_name)
 
         cmd = "hostname -I | cut -d\' \' -f1"
-        ip = subprocess.check_output(cmd, shell = True)
+        ip = subprocess.check_output(cmd, shell=True)
         ip = 'IP: ' + replacer(ip, ["'", 'b', '\\', 'n'])
 
         if_return = [
@@ -137,19 +137,19 @@ def screens(number_screen):
 
     elif number_screen == 1:
         cmd = "top -bn1 | grep load | awk '{printf \"CPU Load: %.2f\", $(NF-2)}'"
-        cpu = subprocess.check_output(cmd, shell = True )
+        cpu = subprocess.check_output(cmd, shell=True)
         cpu = replacer(cpu, ["'", 'b']) + '%'
 
         cmd = "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3,$2,$3*100/$2 }'"
-        memory_usage = subprocess.check_output(cmd, shell = True )
+        memory_usage = subprocess.check_output(cmd, shell=True)
         memory_usage = replacer(memory_usage, ["'", 'b', '\\', 'n'])
 
         cmd = "df -h | awk '$NF==\"/\"{printf \"Disk: %d/%dGB %s\", $3,$2,$5}'"
-        disk_usage = subprocess.check_output(cmd, shell = True )
+        disk_usage = subprocess.check_output(cmd, shell=True)
         disk_usage = replacer(disk_usage, ["'", 'b'])
 
         cmd = "vcgencmd measure_temp"
-        temp = subprocess.check_output(cmd, shell = True )
+        temp = subprocess.check_output(cmd, shell=True)
         temp = 'CPU Temp: ' + replacer(temp, ['"', 'b', '\\', 'n', 'temp='])
 
         if_return = [
@@ -159,7 +159,7 @@ def screens(number_screen):
 
     elif number_screen == 2:
         cmd = "uptime -p"
-        uptime = subprocess.check_output(cmd, shell = True )
+        uptime = subprocess.check_output(cmd, shell=True)
         uptime = 'Uptime: ' + replacer(uptime.strip(), ['"', '\n', 'b', 'up ', "'"])
         # uptime = 'Uptime: 5 days, 2 hours, 15 minutes'
         uptime = uptime.split(', ')
@@ -196,7 +196,7 @@ def while_true():
 
 
 def read_voltage(bus):
-    "This function returns as float the voltage from the Raspi UPS Hat via the provided SMBus object"
+    # This function returns as float the voltage from the Raspi UPS Hat via the provided SMBus object
     address = 0x36
     read = bus.read_word_data(address, 0X02)
     swapped = struct.unpack("<H", struct.pack(">H", read))[0]
