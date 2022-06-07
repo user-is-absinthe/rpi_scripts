@@ -46,20 +46,34 @@ PrivateKey = {закрытый ключ сервера}
 ```PostDown``` - выполняется после завершения работы WireGuard, в данном случае удаляет все правила, добавленные в PostUp
 
 #### Запуск сервера:
+
 ```wg-quick up wg0```
+
 Или через systemd:
+
 ```systemctl start wg-quick@wg0```
+
 С помощью systemd можно (нужно) настроить автозагрузку интерфейса:
+
 ```systemctl enable wg-quick@wg0```
+
 Ну и статус проверить:
+
 ```systemctl enable wg-quick@wg0```
+
 Или при помощи команды ```wg show```.
 
-#### Короткое создание клиента, полное описано в wg_help.md или можно воспользоваться скрпитом user_add.sh:
+#### Короткое создание клиента, полное описано в
+[wg_help.md](https://github.com/user-is-absinthe/rpi_scripts/blob/master/wireguard_setup/wg_help.md)
+или можно воспользоваться скрпитом [user_add.sh](https://github.com/user-is-absinthe/rpi_scripts/blob/master/wireguard_setup/user_add.sh):
 1. Создать ключи:
+
 ```wg genkey | tee private.key |  wg pubkey > public.key```
+
 2. Создать конфигурацию:
-создать файл конфигурации пира ```nano conf.conf```:
+
+Создать файл конфигурации пира ```nano conf.conf```:
+
 ```bash
 [Interface]
 PrivateKey = {private.key пира}
@@ -71,11 +85,19 @@ PublicKey = {pub.key сервера}
 AllowedIPs = 0.0.0.0/0
 Endpoint = {IP сервера}:{port сервера}
 ```
+
 3. Установить утилиту для генерации QR-кодов:
+
 ```apt install qrencode -y```
+
 4. Сгенерировать qr:
+
 ```qrencode -t ansiutf8 < conf.conf```
+
 5. Добавить устройство в конфиг сервера:
+
 ```wg set wg0 peer {pub.key пира} allowed-ips 10.8.0.{ЦИФРА ПРИСВОЕННОГО IP}```
+
 6. Удалить, если что:
+
 ```wg set wg0 peer {pub.key пира} remove```
