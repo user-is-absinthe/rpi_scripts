@@ -7,9 +7,9 @@ PORT_SERVER="51819"
 
 if ! [[ $# -gt 0 ]]
     then
-        echo "./user_add.sh -i {последний октет IP} -u {username without spaces}"
+        echo "./user_add.sh -u {username without spaces} -i {последний октет IP}"
         echo "Example:"
-        echo "./user_add.sh -i 97 -u iPhone_Igor"
+        echo "./user_add.sh -u iPhone_Igor -i 97"
         exit 0
 fi
 
