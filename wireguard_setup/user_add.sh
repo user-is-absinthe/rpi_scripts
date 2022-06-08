@@ -1,15 +1,16 @@
 #!/bin/bash
 KEYS_DIR="keys"
 WG_INTERFACE_NAME="wg0"
-PUBKEY_SERVER="8db1PMpTiuOwnZW4nvkdkYDjAZuY+9++ZmTcwuT+QmA="
-IP_SERVER="89.22.230.27"
-PORT_SERVER="51819"
+PUBKEY_SERVER="123321="
+IP_SERVER="321.123.000.000"
+PORT_SERVER="123"
 
 if ! [[ $# -gt 0 ]]
     then
-        echo "./user_add.sh -u {username without spaces} -i {последний октет IP}"
+        echo "Error: Missing arguments."
+        echo "./user_add.sh -i {последний октет IP} -u {username without spaces}"
         echo "Example:"
-        echo "./user_add.sh -u iPhone_Igor -i 97"
+        echo "./user_add.sh -i 97 -u iPhone_Igor"
         exit 0
 fi
 
