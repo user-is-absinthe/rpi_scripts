@@ -43,3 +43,7 @@ Endpoint = {IP сервера}:{port сервера}
 6. Ну и удалить если что:
 
 ```wg set wg0 peer {pub.key пира} remove```
+
+7. Для просомтра статистики:
+
+```wg show wg0``` или ```wg show wg0 dump```
