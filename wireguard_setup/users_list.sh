@@ -7,6 +7,7 @@
 # * хотя сейчас одну проверку я всё же сделаю...
 
 KEYS_DIR="keys"
+CONFIG_FILE_NAME="conf"
 
 users_list=("username")
 public_keys=("public_key")
@@ -45,7 +46,7 @@ do
             private_key="${line/"PrivateKey = "/""}"
             private_keys[${#private_keys[@]}]="${private_key}"
         fi
-    done < "${f_name}"/config.conf
+    done < "${f_name}"/"${CONFIG_FILE_NAME}".conf
 done
 
 #echo "finally"
