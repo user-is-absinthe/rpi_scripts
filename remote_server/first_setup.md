@@ -1,4 +1,4 @@
-# Настройка новго удаленного сервера
+# Настройка нового удаленного сервера
 
 #### создать пользователя
 ```adduser user```
@@ -36,6 +36,13 @@ PasswordAuthentication no
 # Отключить вход для рута:
 PermitRootLogin no
 ```
+### ! Настройка для MobaXterm, включающая небезопасный (старый) алгоритм SHA-1 ([источник](https://superuser.com/questions/1678830/server-refused-our-key-only-from-mobaxterm-bookmark-setup)):
+
+- добавить в файл конфигурации следующую строку:
+```
+PubkeyAcceptedKeyTypes +ssh-rsa
+```
+
 - сохранить и перезапустить сервис
 ```bash
 # Ubuntu/Debian
