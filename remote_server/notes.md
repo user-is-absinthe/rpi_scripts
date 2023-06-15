@@ -8,3 +8,9 @@
 
 - [Install Java&JDK 17.](https://techviewleo.com/install-java-openjdk-on-ubuntu-linux/)
 
+- Посмотреть используемые порты:
+```
+lsof -i -n -P
+```
+
+- [Заметки про приветствие при входе.](https://habr.com/ru/articles/529746/)
