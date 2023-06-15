@@ -59,7 +59,7 @@ PrivateKey = {закрытый ключ сервера}
 
 Ну и статус проверить:
 
-```systemctl enable wg-quick@wg0```
+```systemctl status wg-quick@wg0```
 
 Или при помощи команды ```wg show```.
 
