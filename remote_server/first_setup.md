@@ -54,5 +54,7 @@ sudo systemctl restart ssh
 # CentOS/Fedora
 sudo service sshd restart
 ```
-- при необходимости установить сетевые утилиты, в частности, ifconfig
-```apt install net-tools```
+- при необходимости установить сетевые утилиты, в частности, ifconfig:
+```
+apt install net-tools
+```
