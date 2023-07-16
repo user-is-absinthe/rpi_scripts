@@ -52,7 +52,9 @@ done
 if ! [ -d "$KEYS_DIR" ]
     then
         echo "Error: Cannot find keys directory."
-        exit 1
+        # exit 1
+        mkdir -p "$KEYS_DIR"
+        echo "Info: Create dir."
 fi
 
 # проверка занятости данного IP
