@@ -56,7 +56,9 @@ done
 if ! [ -d "$KEYS_DIR" ]
     then
         echo "Error: Cannot find keys directory."
-        exit 1
+        # exit 1
+        mkdir -p "$KEYS_DIR"
+        echo "Info: Create dir."
 fi
 
 # проверка занятости данного IP
@@ -79,7 +81,7 @@ done
 # создаем папочку с IP и именем
 dir_name="${ip}_${username}"
 path_to_work_dir=$KEYS_DIR/$dir_name
-mkdir "$path_to_work_dir"
+mkdir -p "$path_to_work_dir"
 
 # генерируем открытый и закрытый ключи и сохраняем в файлы
 private_key=`wg genkey`
@@ -107,4 +109,5 @@ echo "$config" > "${all_config_dir}/${ip}_${username}.conf"
 echo "${username} with IP 10.8.0.${small_ip}"
 #echo "$config" | qrencode -t ansiutf8
 # cat "${path_to_work_dir}/config.conf"
+mkdir -p "${all_config_dir}"
 echo "$config"  | qrencode -o "${all_config_dir}/${ip}_${username}.png"
