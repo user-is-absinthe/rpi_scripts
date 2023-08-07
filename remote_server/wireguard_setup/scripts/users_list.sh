@@ -7,7 +7,7 @@
 # * хотя сейчас одну проверку я всё же сделаю...
 
 KEYS_DIR="keys"
-CONFIG_FILE_NAME="conf"
+CONFIG_FILE_NAME="config"
 
 users_list=("username")
 public_keys=("public_key")
