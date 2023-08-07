@@ -99,8 +99,11 @@ DNS = 8.8.8.8
 PublicKey = ${PUBKEY_SERVER}
 AllowedIPs = 0.0.0.0/0
 Endpoint = ${IP_SERVER}:${PORT_SERVER}"
+
+mkdir -p "${all_config_dir}/$dir_name"
+
 echo "$config" > "${path_to_work_dir}/config.conf"
-echo "$config" > "${all_config_dir}/${ip}_${username}.conf"
+echo "$config" > "${all_config_dir}/$dir_name/${ip}_${username}.conf"
 
 # добавляем открытый ключ на сервер
 `wg set ${WG_INTERFACE_NAME} peer ${public_key} allowed-ips 10.8.0.${small_ip}`
@@ -109,5 +112,5 @@ echo "$config" > "${all_config_dir}/${ip}_${username}.conf"
 echo "${username} with IP 10.8.0.${small_ip}"
 #echo "$config" | qrencode -t ansiutf8
 # cat "${path_to_work_dir}/config.conf"
-mkdir -p "${all_config_dir}"
-echo "$config"  | qrencode -o "${all_config_dir}/${ip}_${username}.png"
+
+echo "$config"  | qrencode -o "${all_config_dir}/$dir_name/${ip}_${username}.png"
