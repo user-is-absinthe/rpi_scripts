@@ -17,3 +17,8 @@ lsof -i -n -P
 
 
 - [Статейка про программу, показывающую необходимые к перезапуску службы после обновления.](https://zalinux.ru/?p=5408)
+
+- Запихивание папки в zip-файл:
+```bash
+zip -r folder_with_subfolders.zip path_to_folder
+```
