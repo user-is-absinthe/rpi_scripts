@@ -7,9 +7,13 @@ apt install dante-server
 ```
 
 #### копируем файл настроек
-```mv /etc/danted.conf /etc/danted.conf.old```
+```bash
+mv /etc/danted.conf /etc/danted.conf.old
+```
 
-```nano /etc/danted.conf```
+```bash
+nano /etc/danted.conf
+```
 
 #### Настройки берем аналогичные
 ```@bash
@@ -38,21 +42,35 @@ socks pass {
 ```
 
 при запуске выдает ошибку, надо поправить файл 
-```nano /lib/systemd/system/danted.service```
+```bash
+nano /lib/systemd/system/danted.service
+```
+
 а именно убрать из ReadOnly "var":
 ```bash
 #ReadOnlyDirectories=/bin /etc /lib -/lib64 /sbin /usr /var
 ReadOnlyDirectories=/bin /etc /lib -/lib64 /sbin /usr
 ```
 
-#### Тестирование (выдаст ошибку):
-```curl -x socks5://<your_ip_server>:<your_danted_port> ifconfig.co```
+#### Тестирование (выдаст ошибку, так как конфиг я уже поменял под работу с авторизацией):
+```bash
+curl -x socks5://<your_ip_server>:<your_danted_port> ifconfig.co
+```
 
 #### Далее, создадим пользователя
-```useradd duser -r --shell /usr/sbin/nologin```
-```passwd duser```
+```bash
+useradd duser -r --shell /usr/sbin/nologin
+```
+
+```bash
+passwd duser
+```
+
 -r - создается системный пользователь
+
 --shell /usr/sbin/nologin - у нового пользователя не будет доступа к cmd
 
 #### Тестирование:
-```curl -x socks5://<your_username>:<your_password>@<your_ip_server>:<your_danted_port> ifconfig.co```
+```bash
+curl -x socks5://<your_username>:<your_password>@<your_ip_server>:<your_danted_port> ifconfig.co
+```
