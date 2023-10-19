@@ -13,6 +13,13 @@
 lsof -i -n -P
 ```
 
+или 
+
+```
+netstat -tulpn | grep LISTEN
+```
+
+
 - [Заметки про приветствие при входе.](https://habr.com/ru/articles/529746/)
 
 
