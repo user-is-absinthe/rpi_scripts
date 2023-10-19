@@ -74,3 +74,9 @@ passwd duser
 ```bash
 curl -x socks5://<your_username>:<your_password>@<your_ip_server>:<your_danted_port> ifconfig.co
 ```
+
+#### Управление службой:
+```bash
+systemctl status danted
+```
+
