@@ -82,7 +82,11 @@ public=no
 
 ```adduser netuser``` 
 
-и задать ему пароль, после чего добавить
+и задать ему пароль, отключить доступ
+
+```usermod -s /sbin/nologin netuser```
+
+после чего добавить
 пользователя в Samba 
 
 ```sudo smbpasswd -a netuser``` 
