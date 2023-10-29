@@ -3,30 +3,37 @@
 ### 1. Обновить все зависимсти
 
 ```bash
-sudo apt-get update
-sudo apt-get upgrade
+apt-get update
+apt-get upgrade
 ```
 
 ### 2. Установить пакеты для работы с Samba:
 
 ```bash
-sudo apt-get install samba samba-common-bin
+apt-get install samba samba-common-bin
 ```
 
 ### 3. Для внешних дисков - создать точки монтирования:
 
 ```bash
-sudo mkdir /mnt/1_tb
-sudo mkdir /mnt/2_tb
+mkdir /mnt/1_tb
+mkdir /mnt/2_tb
 ```
 
 ### 4. Посмотреть пути дисков в системе 
 
-при помощи ```sudo fdisk -l```, затем создать запись в ```/etc/fstab```
+при помощи ```fdisk -l``` посмотреть относительные пути к дискам, а затем при помощи
+```bash blkid /dev/sdb``` узнать UID диска и понтировать по нему в ```/etc/fstab```
 для автоматического монтирования при включении:
 ```bash
 /dev/sda1   /mnt/1_tb    ntfs-3g rw,auto,user,fmask=0111,dmask=0000,noatime,nodiratime   0   0
 /dev/sdb1   /mnt/2_tb    ntfs-3g rw,auto,user,fmask=0111,dmask=0000,noatime,nodiratime   0   0
+```
+
+или через UID
+
+```bash
+UUID="2855df28-ec22-82bc-d1ae-1b9968c9791c"   /mnt/2tb_raid1    ext4 rw,auto,user,fmask=0111,dmask=0000,noatime,nodiratime   0   0
 ```
 
 ```noatime``` и ```nodiratime``` - некоторые дополнительные параметры
@@ -35,10 +42,12 @@ sudo mkdir /mnt/2_tb
 Для FAT32 заменить ```ntfs-3g``` на
 ```vfat``` или на ```ext4``` для ext4 соотвественно.
 
+Для монтирования выполнить ```mount -a```.
+
 ### 5. Настроить файл конфигурации:
 
 ```bash
-sudo nano /etc/samba/smb.conf
+nano /etc/samba/smb.conf
 ```
 
 ```bash
@@ -89,13 +98,13 @@ public=no
 после чего добавить
 пользователя в Samba 
 
-```sudo smbpasswd -a netuser``` 
+```smbpasswd -a netuser``` 
 
 и задать ему пароль (можно отличный от системного).
 
 ### 7. Перезагрузить Samba 
 
-```sudo systemctl restart smbd```.
+```systemctl restart smbd```.
 
 ### 8. В удаленной системе подключить ситевой диск 
 
