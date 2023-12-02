@@ -1,30 +1,40 @@
 #!/bin/bash
 KEYS_DIR="keys"
-WG_INTERFACE_NAME="wg0"
-PUBKEY_SERVER="super_key="
-IP_SERVER="123.234.123.234"
-PORT_SERVER="123"
+#WG_INTERFACE_NAME="wg-swe"
+PUBKEY_SERVER="публичный ключ сервера"
+IP_SERVER="123.456.789.123"
+PORT_SERVER="порт"
 
 all_config_dir="config_and_qr"
 
 if ! [[ $# -gt 0 ]]
     then
         echo "Error: Missing arguments."
-        echo "./restore_users.sh -i {последний октет IP} -u {username without spaces}"
+        echo "./restore_users.sh -i {последний октет IP} -u {username without spaces} -f {название интерфейса wg}"
         echo "Example:"
-        echo "./restore_users.sh -i 97 -u iPhone_Igor"
+        echo "./restore_users.sh -i 97 -u iPhone_Igor -f wg0"
         exit 0
 fi
 
-while getopts i:u: flag
+while getopts i:u:f: flag
 do
     case "${flag}" in
         i) ip=${OPTARG};;
         u) username=${OPTARG};;
+        f) wg_interface_name=${OPTARG};;
         *) echo "Error with arguments, run without it."
           exit 1
     esac
 done
+
+# проверка того, что указанный интерфейс поднят и работает
+if wg | grep -q "$wg_interface_name"
+then
+        echo "Interface found."
+else
+        echo "Interface not found."
+        exit 1
+fi
 
 # проверка IP на число вообще
 re='^[0-9]+$'
@@ -79,7 +89,7 @@ do
 done
 
 # создаем папочку с IP и именем
-dir_name="${ip}_${username}"
+dir_name="${wg_interface_name}_${ip}_${username}"
 path_to_work_dir=$KEYS_DIR/$dir_name
 mkdir -p "$path_to_work_dir"
 
@@ -93,7 +103,7 @@ echo "$public_key" > "${path_to_work_dir}/public.key"
 config="[Interface]
 PrivateKey = ${private_key}
 Address = 10.8.0.${small_ip}/24
-DNS = 8.8.8.8
+DNS = 9.9.9.9
 
 [Peer]
 PublicKey = ${PUBKEY_SERVER}
@@ -106,7 +116,7 @@ echo "$config" > "${path_to_work_dir}/config.conf"
 echo "$config" > "${all_config_dir}/$dir_name/${ip}_${username}.conf"
 
 # добавляем открытый ключ на сервер
-`wg set ${WG_INTERFACE_NAME} peer ${public_key} allowed-ips 10.8.0.${small_ip}`
+`wg set ${wg_interface_name} peer ${public_key} allowed-ips 10.8.0.${small_ip}`
 
 # echo "Already done!"
 echo "${username} with IP 10.8.0.${small_ip}"
