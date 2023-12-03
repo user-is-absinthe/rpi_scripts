@@ -50,12 +50,29 @@ PubkeyAcceptedKeyTypes +ssh-rsa
 - сохранить и перезапустить сервис
 ```bash
 # Ubuntu/Debian
-sudo systemctl restart ssh
-# CentOS/Fedora
-sudo service sshd restart
+systemctl restart ssh
 ```
 - при необходимости установить утилиты, в частности, ifconfig и ufw (Uncomplicated Firewall):
 ```
 apt install net-tools -y
 apt install ufw -y
+```
+
+- Шпаргалка по ufw:
+```bash
+# проверить что там по правилам
+ufw status
+
+# включить/выключить и одновременно добавить в автозагрузку
+ufw enable
+ufw disable
+
+# разрешить слушать какой-то порт, при такой нотации открывается ipv4 и ipv6 сразу по протоколам TCP и UDP
+ufw allow 22 comment "ssh here"
+ufw delete allow 22
+
+# разрешаем перенаправление
+ufw route allow in on wg0 out on ens3 comment "allow wg0 redirect"
+ufw route delete allow in on wg-swe out on ens3
+
 ```
