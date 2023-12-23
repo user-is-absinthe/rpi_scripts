@@ -19,10 +19,12 @@
 [Interface]
 Address = 10.8.0.1/24
 SaveConfig = true
-PostUp = ufw route allow in on wg0 out on {основной интерфейс сервера, на который всё приходит и с которго будет уходить}
+PostUp = ufw route allow in on {название WG интерфейса} out on {основной интерфейс сервера, на который всё приходит и с которго будет уходить} comment "for {название WG интерфейса}"
+PostUp = ufw allow {необходимый порт} comment "{название WG интерфейса} here"
 PostUp = iptables -t nat -I POSTROUTING -o {основной интерфейс сервера} -j MASQUERADE
 PostUp = ip6tables -t nat -I POSTROUTING -o {основной интерфейс сервера} -j MASQUERADE
-PreDown = ufw route delete allow in on wg0 out on {основной интерфейс сервера}
+PreDown = ufw route delete allow in on {название WG интерфейса} out on {основной интерфейс сервера}
+PreDown = ufw delete allow {необходимый порт}
 PreDown = iptables -t nat -D POSTROUTING -o {основной интерфейс сервера} -j MASQUERADE
 PreDown = ip6tables -t nat -D POSTROUTING -o {основной интерфейс сервера} -j MASQUERADE
 ListenPort = {необходимый порт}
