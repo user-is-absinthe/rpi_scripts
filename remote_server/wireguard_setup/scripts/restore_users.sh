@@ -1,10 +1,11 @@
 #!/bin/bash
 KEYS_DIR="keys"
-#WG_INTERFACE_NAME="wg-swe"
 PUBKEY_SERVER="публичный ключ сервера"
 IP_SERVER="123.456.789.123"
 PORT_SERVER="порт"
 DNS_SERVER="9.9.9.9"
+#DNS_SERVER="8.8.8.8"
+# Почему-то в некоторых местах некоторые DNS не работают...
 
 all_config_dir="config_and_qr"
 verbose=false
