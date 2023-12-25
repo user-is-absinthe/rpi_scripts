@@ -128,7 +128,7 @@ Endpoint = ${IP_SERVER}:${PORT_SERVER}"
 mkdir -p "${all_config_dir}/$dir_name"
 
 echo "$config" > "${path_to_work_dir}/config.conf"
-echo "$config" > "${all_config_dir}/$dir_name/${ip}_${username}.conf"
+echo "$config" > "${all_config_dir}/${dir_name}/${dir_name}.conf"
 
 # добавляем открытый ключ на сервер
 `wg set ${wg_interface_name} peer ${public_key} allowed-ips 10.8.0.${small_ip}`
