@@ -29,3 +29,5 @@ netstat -tulpn | grep LISTEN
 ```bash
 zip -r folder_with_subfolders.zip path_to_folder
 ```
+
+- [Шпаргалку по UFW можно глянуть тут.](https://github.com/user-is-absinthe/rpi_scripts/blob/master/remote_server/first_setup.md)
