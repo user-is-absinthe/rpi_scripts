@@ -19,7 +19,7 @@ nano /etc/danted.conf
 ```@bash
 logoutput: /var/log/socks.log
 # usially port - 53 or 443
-internal: %interface_name% port = %port%
+internal: 0.0.0.0 port=%port%
 external: %interface_name%
 clientmethod: none
 # socksmethod: none
@@ -41,7 +41,7 @@ socks pass {
 }
 ```
 
-при запуске выдает ошибку, надо поправить файл 
+Если при запуске выдает ошибку, надо поправить файл 
 ```bash
 nano /lib/systemd/system/danted.service
 ```
@@ -52,27 +52,32 @@ nano /lib/systemd/system/danted.service
 ReadOnlyDirectories=/bin /etc /lib -/lib64 /sbin /usr
 ```
 
-#### Тестирование (выдаст ошибку, так как конфиг я уже поменял под работу с авторизацией):
-```bash
-curl -x socks5://<your_ip_server>:<your_danted_port> ifconfig.co
-```
-
 #### Далее, создадим пользователя
 ```bash
-useradd duser -r --shell /usr/sbin/nologin
+useradd your_dante_user -r --shell /usr/sbin/nologin
 ```
 
 ```bash
-passwd duser
+passwd your_dante_user
 ```
 
 -r - создается системный пользователь
 
 --shell /usr/sbin/nologin - у нового пользователя не будет доступа к cmd
 
-#### Тестирование:
+или 
+
+-s /bin/false - аналогично верхней команде
+
+#### Разрешить файрволу пропускать трафик:
+
 ```bash
-curl -x socks5://<your_username>:<your_password>@<your_ip_server>:<your_danted_port> ifconfig.co
+ufw allow %port% comment "danted here"
+```
+
+#### Тестирование с авторизацией:
+```bash
+curl -v -x socks5://%your_dante_user%:%your_dante_password%@%your_server_ip%:%your_dante_port% https://ifconfig.me/
 ```
 
 #### Управление службой:
