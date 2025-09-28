@@ -1,5 +1,7 @@
 # Настройка нового удаленного сервера
 
+### Переделал всё под скрипт, [скрипт лежит здеся](https://github.com/user-is-absinthe/rpi_scripts/blob/master/remote_server/firstsetup_newvps.sh).
+
 #### сменить пароль root
 ```passwd```
 
