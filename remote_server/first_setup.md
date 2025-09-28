@@ -2,6 +2,8 @@
 
 ### Переделал всё под скрипт, [скрипт лежит здеся](https://github.com/user-is-absinthe/rpi_scripts/blob/master/remote_server/firstsetup_newvps.sh).
 
+Необходимо как-то закинуть на сервер (например, через буфер обмена и редактор nano) и дать права на исполнение `chmod +x firstsetup_newvps.sh`.
+
 #### сменить пароль root
 ```passwd```
 
