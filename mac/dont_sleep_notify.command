@@ -65,7 +65,7 @@ wait "${pid}" 2>/dev/null || true
 # Единственное уведомление по завершении периода
 if command -v terminal-notifier >/dev/null 2>&1; then
   terminal-notifier \
-    -title "Не спать завершено" \
+    -title "Активность завершена" \
     -subtitle "Система вернулась к обычному плану" \
     -message "Период бодрствования: ${minutes} мин. Окончание: ${END}" \
     -sound default \
