@@ -32,13 +32,25 @@ chmod 600 /home/$USERNAME/.ssh/authorized_keys
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.old
 
 # Настройка SSH
-cat >> /etc/ssh/sshd_config << EOF
+# Комментируем старые варианты заданных параметров
+for key in "Port" "LoginGraceTime" "PasswordAuthentication" "PermitRootLogin"; do
+    # Ищем строки, не начинающиеся с '#', содержащие нужный параметр
+    grep -E "^[[:space:]]*$key" /etc/ssh/sshd_config | while read -r line; do
+        # Комментируем все совпадения
+        sed -i "s|^[[:space:]]*\($key.*\)|# \1|" /etc/ssh/sshd_config
+    done
+done
+
+# Добавляем новые параметры
+cat << EOF >> /etc/ssh/sshd_config
+
 # Custom settings
 Port $NEW_SSH_PORT
 LoginGraceTime 30
 PasswordAuthentication no
 PermitRootLogin no
 EOF
+
 
 # Переход с socket на daemon (для новых Ubuntu)
 systemctl stop ssh.socket 2>/dev/null
