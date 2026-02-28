@@ -2,7 +2,7 @@
 ```bash
 sudo su
 apt update
-apt upgrade
+apt upgrade -y
 apt dist-upgrade
 do-release-upgrade
 ```
