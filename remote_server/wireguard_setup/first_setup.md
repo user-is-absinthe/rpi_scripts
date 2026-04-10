@@ -2,6 +2,8 @@
 
 *Все команды выполняются из-под рута.*
 
+### [Добавил скрипт для автоматической установки и настройки сервера.](https://github.com/user-is-absinthe/rpi_scripts/blob/master/remote_server/wireguard_setup/scripts/setup_wg_server.sh)
+
 #### Установить WireGuard:
 ```apt install wireguard -y```
 
