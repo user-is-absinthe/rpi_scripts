@@ -1,3 +1,8 @@
+> [!WARNING]
+> Скрипт командной строки, лежащий в этой папке, **устарел** и больше не поддерживается.
+> Актуальная альтернатива — нативное macOS-приложение с графическим интерфейсом:
+> **[mac_dont_sleep](https://github.com/user-is-absinthe/mac_dont_sleep)** ☕️ — friendly GUI for the built-in `caffeinate` utility.
+
 # Что происходит
 
 - Скрипт [dont_sleep.command](https://github.com/user-is-absinthe/rpi_scripts/blob/master/mac/dont_sleep.command) позволяет маку "не засыпать" из коробки, только штатными средствами.
